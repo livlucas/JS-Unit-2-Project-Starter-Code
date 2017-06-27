@@ -187,6 +187,8 @@ nav ul ul li {
 
 /* Individual Article Styling */
 .article {
+  min-height: 100px;
+  box-sizing: border-box;
   border-bottom: 1px solid #ccc;
   transition: 0.2s all;
 }
@@ -194,6 +196,7 @@ nav ul ul li {
 .article:hover {
   padding: 0 2%;
   background-color: #eee;
+  border-bottom: 1px solid #ccc;
 }
 
 .article .featuredImage {

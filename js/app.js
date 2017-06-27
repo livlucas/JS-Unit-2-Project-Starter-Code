@@ -13,7 +13,7 @@ var feeds = [
         thumbnail: 'https://pbs.twimg.com/profile_images/447374371917922304/P4BzupWu.jpeg',
         impressions: '430',
         description: "A Procuradoria-Geral da República fará três denúncias contra o presidente Michel Temer com base nas delações da JBS. A primeira será por corrupção passiva. A segunda será por obstrução da Justiça e a terceira será por organização criminosa. Serão protocoladas em momentos distintos. A denúncia por corrupção passiva, por estar em fase final de elaboração, será apresentada primeiro. As outras duas ainda requerem diligências.",
-        articleLink: 'www.google.com'
+        articleLink: 'http://www.google.com/search?q=Google+tutorial+create+link'
     },
 
     {
@@ -26,33 +26,34 @@ var feeds = [
     },
 
     {
-        title: "Lorem Ipsum",
+        title: "Curabitur aliquet purus id est dapibus?",
+        subtitle: "sports",
+        thumbnail: 'https://pbs.twimg.com/profile_images/447374371917922304/P4BzupWu.jpeg',
+        impressions: '310',
+        description: "ullam sed enim sed arcu molestie congue. Integer ut ultrices nunc, vel euismod justo. Mauris consectetur convallis nibh ac accumsan. Aenean pellentesque venenatis tristique. Maecenas dapibus imperdiet est, et dapibus metus volutpat a. Nulla semper purus id purus hendrerit viverra. Quisque varius, nunc vitae pharetra interdum, libero tellus iaculis nisl, ac maximus dolor est eu neque. Aenean a tortor turpis. Etiam ac turpis a ipsum cursus vehicula eget eu ex.",
+        articleLink: 'http://www.facebook.com'
+    },
+
+    {
+        title: "Maecenas id libero tincidunt,",
+        subtitle: "s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+        thumbnail: 'https://pbs.twimg.com/profile_images/447374371917922304/P4BzupWu.jpeg',
+        impressions: '1430',
+        description: "endrerit nulla quis, vulputate neque. Pellentesque vitae vestibulum risus, in pretium ante. Duis tempor diam eget maximus iaculis. Maecenas facilisis lacinia leo commodo pretium. In sit amet massa in sem blandit egestas non sit amet ligula. Proin rhoncus rhoncus nisl vitae facilisis. Sed tristique ipsum mattis magna scelerisque, id sollicitudin magna porta. Vestibulum ut blandit erat.",
+        articleLink: 'www.tesla.com'
+    },
+
+    {
+        title: "Lorem ",
         subtitle: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
         thumbnail: 'https://pbs.twimg.com/profile_images/447374371917922304/P4BzupWu.jpeg',
         impressions: '24',
         description: "Mauris ut congue mi, ut facilisis nisi. Phasellus interdum suscipit nulla ut euismod. Nam vitae nulla varius, varius dolor quis, faucibus enim. Vestibulum maximus, nibh sit amet rhoncus semper, mi dui volutpat libero, sit amet tristique nunc augue a mauris. Suspendisse consectetur, urna a tincidunt porta, neque elit sollicitudin magna, nec tincidunt leo magna blandit ex. Praesent sed lobortis mi. Duis laoreet purus ac turpis pellentesque dictum. Sed dapibus varius congue. Ut vel ullamcorper nulla. Proin in elementum risus. Vivamus a leo ut diam efficitur faucibus. Nam tincidunt mauris id sem fringilla imperdiet. Vestibulum blandit nibh in diam luctus, a scelerisque sapien fringilla. Curabitur ut nibh eu risus vehicula euismod. Quisque finibus convallis erat at placerat. Mauris gravida aliquam ipsum nec vehicula.",
-        articleLink: 'lelele.lla.com'
+        articleLink: 'www.gmail.com'
     }
 ];
 
-var $article = $('<article>', {class: 'article'}),
-    $imageSection = $('<section>', {class: 'featuredImage'}),
-    $image = $('<img>', {src: feeds[0].thumbnail, alt: ''}),
-    $articleSection = $('<section>', {class: 'articleContent'}),
-    $link = $('<a>', {href: '#'}).append('<h3>'),
-    $h6 = $('<h6>'),
-    $impressionsSection = $('<section>', {class: 'impressions'}),
-    $clearfixDiv = $('<div>', {class: 'clearfix'}),
-    $articleTemplate;
-  
-$articleTemplate = $article.append($imageSection);
-$imageSection.append($image);
-$article.append($articleSection);
-$articleSection.append($link)
-    .append($h6);
-$article.append($impressionsSection)
-    .append($clearfixDiv);
-
+//only structure, empty tree
 function generateArticleTreeStructure() {
     var html, $article;
 
@@ -75,6 +76,7 @@ function generateArticleTreeStructure() {
     return $article;
 }
 
+//fill the tree with article data
 function generateArticleTree(article) {
     var $article = generateArticleTreeStructure();
 
@@ -85,40 +87,45 @@ function generateArticleTree(article) {
 
     return $article;
 }
-/*
-function generateNewArticle() {
-    var i,
-        list,
-        $newTemplate;
 
-    for (i = 0; i < feeds.length; i += 1) {
-        $newTemplate = $articleTemplate.clone();
-        $newTemplate.find('.featuredImage').attr('src', feeds[i].thumbnail);
-        $newTemplate.find('.articleContent').find('h3').text(feeds[i].title);
-        $newTemplate.find('.articleContent').find('h6').text(feeds[i].subtitle);
-        $newTemplate.find('.impressions').text(feeds[i].impressions);
+//get the index of the article clicked
+function getArticleIndex($target) {
+    var index;
 
-        $('#main').append($newTemplate);
+    index = $target.parents('.article').first().index();
+    console.log(index);
+    
+    return index;
+} 
+
+function hidePopup() {
+    $('#popUp').addClass('closePopUp');
+    $('#popUp').addClass('loader hidden');
+}
+
+function showPopup() {
+    $('#popUp').removeClass('loader hidden');
+    $('#popUp').toggleClass('.popUpAction');
+}
+
+function renderArticleList(articles, $container) {
+    var i;
+
+    for (i = 0; i < articles.length; i += 1) {
+        $container.append(generateArticleTree(articles[i]));
     }
-}  
+} 
 
-function generateNewArticlev2(article) {
-    var i,
-        $newTemplate;
+function renderArticleDetails(article, $container) {
+    $container.find('.container h1').text(article.title);
+    $container.find('.container p').text(article.subtitle);
+    $container.find('.container .popUpAction').attr('href', article.articleLink);
+}
 
-        $newTemplate = $articleTemplate.clone();
-        $newTemplate.find('.featuredImage').attr('src', article.thumbnail);
-        $newTemplate.find('.articleContent').find('h3').text(article.title);
-        $newTemplate.find('.articleContent').find('h6').text(article.subtitle);
-        $newTemplate.find('.impressions').text(article.impressions);
-
-        return $newTemplate;
-}*/
 
 $(document).ready(function() {
-      var i;
 
-    feeds.forEach((e) => $('#main').append(generateArticleTree(e)));
+    renderArticleList(feeds, $('#main'));
 
     //handler to when user clicks on search
     $('#search').on('click', function() {
@@ -127,26 +134,24 @@ $(document).ready(function() {
 
     //handler to when user clicks on title and opens article details
     $('.articleContent a').on('click', function(e) {
-        $('#popUp').removeClass('loader hidden');
-        $('#popUp').toggleClass('.popUpAction');
+        var i;
+
+        e.preventDefault();
+
+        i = getArticleIndex($(e.target));
+
+        renderArticleDetails(feeds[i], $('#popUp'));
+        showPopup();
     });
 
     //handler to hide popUp when the x is pressed
-    $('.closePopUp').on('click', function() {
-        $('#popUp').toggleClass('closePopUp');
-        $('#popUp').toggleClass('loader hidden');
-    });
+    $('.closePopUp').on('click', hidePopup);
 
     //handler for when esc is pressed. não tá funcionando da forma que deveria!
-    $(document).keyup(function(e) {
+    $(document).keydown(function(e) {
         if (e.keyCode == 27) { // escape key maps to keycode `27`
-            $('#popUp').toggleClass('closePopUp');
-            $('#popUp').toggleClass('loader hidden');
-    }
-  });
+            hidePopup();
+        }
+    });
 });
 
-
-//essa sua funcao de adicionar um artigo na lista
-//eu quero que ela receba um objeto artigo
-//e quando ela adicionar, já tem que aparecer o dados do artigo na sua lista
